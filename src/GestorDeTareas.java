@@ -44,8 +44,8 @@ public class GestorDeTareas {
             this.completada = completada;
         }
 
-        public static void marcarCompletada(boolean completada) {
-            completada = true;
+        public void marcarCompletada() {
+            this.completada = true;
         }
 
 
@@ -56,7 +56,7 @@ public class GestorDeTareas {
 
         // Lista para almacenar las tareas
         private static ArrayList<Tarea> listaDeTareas = new ArrayList<>();
-        private static int contadorDeTareas = 1; // Para asignar IDs únicos a las tareas
+        private static int contadorDeTareas = 0; // Para asignar IDs únicos a las tareas
 
         //metodos
         public static void mostrarMenu() {
@@ -69,7 +69,8 @@ public class GestorDeTareas {
         }
 
         public static void agregarTarea(Scanner scanner) {
-            System.out.println("Agrega una descripcion para la tarea");
+            System.out.println("Agrega una descripcion para la tarea: ");
+            scanner.nextLine();
             String descripcion = scanner.nextLine();
             Tarea nuevaTarea = new Tarea(contadorDeTareas++, descripcion);
             listaDeTareas.add(nuevaTarea);
@@ -99,7 +100,8 @@ public class GestorDeTareas {
         public static int leerEntero(Scanner scanner) {
             while (!scanner.hasNextInt()) {
                 System.out.println("Entrada invalida. Ingresar un numero: ");
-                scanner.next();
+                scanner.nextInt();
+                scanner.nextLine();
             }
             return scanner.nextInt();
         }
@@ -109,7 +111,7 @@ public class GestorDeTareas {
             int id = leerEntero(scanner);
             Tarea tarea = buscarTareaPorId(id);
             if (tarea != null) {
-                Tarea.marcarCompletada(true);
+                tarea.marcarCompletada();
                 System.out.println("La tarea ha sido marcada como completada");
             } else {
                 System.out.println("Tarea no encontrada");
